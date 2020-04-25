@@ -34,3 +34,7 @@ function show(string){
     screen.innerHTML = displayValue;
 }
 
+function clear() {
+    displayValue = '';
+    screen.innerHTML = '';
+}
