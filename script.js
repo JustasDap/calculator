@@ -16,12 +16,12 @@ function divide(a, b){
 
 function operate(ope, a, b){
     if(ope === '+'){
-        add(a, b)
+        return add(a, b);
     } else if(ope === '-'){
-        subtract(a, b);
+        return subtract(a, b);
     } else if(ope === '*'){
-        multiply(a, b);
+        return multiply(a, b);
     } else if(ope === '/'){
-        divide(a, b);
+        return divide(a, b);
     }
 }
