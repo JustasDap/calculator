@@ -28,6 +28,10 @@ function operate(ope, a, b){
 }
 const screen = document.getElementById('results');
 
+let numbers = [];
+
+let operators = [];
+
 let displayValue = '';
 
 function show(char){
@@ -86,7 +90,9 @@ document.getElementById('num0').addEventListener('click', function(){
 })
 
 document.getElementById('dot').addEventListener('click', function(){
-    show('.');
+    if(!displayValue.includes('.')){
+        show('.');
+    }
 })
 
 document.getElementById('equals').addEventListener('click', function(){
