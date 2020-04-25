@@ -25,3 +25,12 @@ function operate(ope, a, b){
         return divide(a, b);
     }
 }
+const screen = document.getElementById('results');
+
+let displayValue = '';
+
+function show(string){
+    displayValue += string;
+    screen.innerHTML = displayValue;
+}
+
