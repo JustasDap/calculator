@@ -1,3 +1,4 @@
+
 function add(a, b){
     return a + b;
 }
@@ -29,12 +30,17 @@ const screen = document.getElementById('results');
 
 let displayValue = '';
 
-function show(string){
-    displayValue += string;
+function show(char){
+    displayValue += char;
     screen.innerHTML = displayValue;
 }
 
 function clear() {
     displayValue = '';
     screen.innerHTML = '';
+}
+
+function backspace() {
+    displayValue = displayValue.substring(0, displayValue.length - 1);
+    show('');
 }
