@@ -46,6 +46,11 @@ function clear() {
     screen.innerHTML = '';
 }
 
+function clearMemory() {
+    numbers = [];
+    operators = [];
+}
+
 function backspace() {
     displayValue = displayValue.substring(0, displayValue.length - 1);
     show('');
@@ -109,6 +114,7 @@ document.getElementById('backspace').addEventListener('click', function(){
 
 document.getElementById('clear').addEventListener('click', function(){
     clear();
+    clearMemory();
 })
 
 document.getElementById('divide').addEventListener('click', function(){
@@ -139,3 +145,4 @@ function savingToMemory(operator) {
     numbers[numbers.length] = displayValue;
     operators[operators.length] = operator;
 }
+
