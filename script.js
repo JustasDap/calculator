@@ -103,7 +103,11 @@ document.getElementById('dot').addEventListener('click', function(){
 })
 
 document.getElementById('equals').addEventListener('click', function(){
+    savingToMemory();
     console.log('=');
+    console.log(numbers);
+    console.log(operators);
+    calculate();
     console.log(numbers);
     console.log(operators);
 })
@@ -143,6 +147,43 @@ document.getElementById('plus').addEventListener('click', function(){
 
 function savingToMemory(operator) {
     numbers[numbers.length] = displayValue;
-    operators[operators.length] = operator;
+    if(operator === undefined){
+        return;
+    } else {
+        operators[operators.length] = operator;
+    };
+    
 }
 
+function calculate(){
+    let number;
+    for(let i = 0; i < numbers.length; i++){
+        if(operators[i] === '*'){
+            number = numbers[i] * numbers[i+1];
+            numbers.splice(i, 2, number);
+            operators.splice(i, 1);
+            i--;
+        }
+        if(operators[i] === '/'){
+            number = numbers[i]/numbers[i+1];
+            numbers.splice(i, 2, number);
+            operators.splice(i, 1);
+            i--;
+        }
+    }
+    for(let i = 0; i < numbers.length; i++){
+        if(operators[i] === '+'){
+            number = Number(numbers[i])+Number(numbers[i+1]);
+            numbers.splice(i, 2, number);
+            operators.splice(i, 1);
+            i--;
+        }
+        if(operators[i] === '-'){
+            number = numbers[i]-numbers[i+1];
+            numbers.splice(i, 2, number);
+            operators.splice(i, 1);
+            i--;
+        }
+    }
+    return console.log(numbers[0]);
+}
