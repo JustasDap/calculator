@@ -35,8 +35,10 @@ let operators = [];
 let displayValue = '';
 
 function show(char){
-    displayValue += char;
-    screen.innerHTML = displayValue;
+    if(displayValue.length < 9){
+        displayValue += char;
+        screen.innerHTML = displayValue;
+    }
 }
 
 function clear() {
@@ -97,6 +99,8 @@ document.getElementById('dot').addEventListener('click', function(){
 
 document.getElementById('equals').addEventListener('click', function(){
     console.log('=');
+    console.log(numbers);
+    console.log(operators);
 })
 
 document.getElementById('backspace').addEventListener('click', function(){
@@ -109,16 +113,29 @@ document.getElementById('clear').addEventListener('click', function(){
 
 document.getElementById('divide').addEventListener('click', function(){
     console.log('/');
+    savingToMemory('/');
+    clear();
 })
 
 document.getElementById('multiply').addEventListener('click', function(){
     console.log('*');
+    savingToMemory('*');
+    clear();
 })
 
 document.getElementById('minus').addEventListener('click', function(){
     console.log('-');
+    savingToMemory('-');
+    clear();
 })
 
 document.getElementById('plus').addEventListener('click', function(){
     console.log('+');
+    savingToMemory('+');
+    clear();
 })
+
+function savingToMemory(operator) {
+    numbers[numbers.length] = displayValue;
+    operators[operators.length] = operator;
+}
