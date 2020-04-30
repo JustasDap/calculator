@@ -36,14 +36,21 @@ let currentValue = '';
 
 let displayValue = '';
 
+let lineBreak = 0;
+
 function show(char){
-    //if(currentValue.length < 9){
-        if(!isNaN(char) || char === '.'){
-            currentValue += char;
-        }
-        displayValue += char;
-        screen.innerHTML = displayValue;
-    //}
+    if(displayValue.length > 25){
+        return;
+    }
+    if(!isNaN(char) || char === '.'){
+        currentValue += char;
+    }
+    displayValue += char;
+    screen.innerHTML = displayValue;
+    if(displayValue.length > 10 && lineBreak === 0){
+        displayValue += '<br>';
+        lineBreak++;
+    }
 }
 
 //clears
@@ -169,6 +176,10 @@ function savingToMemory(operator) {
 
 //calculates result using numbers[] and operators[];
 function calculate(){
+    if(numbers[numbers.length-1] === ''){
+        numbers.splice(numbers.length-1 , 1)
+        return;
+    }
     for(let i = 0; i < numbers.length; i++){
         if(operators[i] === '*'){
             numbers.splice(i, 2, operate('*', numbers[i], numbers[i+1]));
