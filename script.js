@@ -32,26 +32,36 @@ let numbers = [];
 
 let operators = [];
 
+let currentValue = '';
+
 let displayValue = '';
 
 function show(char){
-    if(displayValue.length < 9){
+    //if(currentValue.length < 9){
+        if(!isNaN(char) || char === '.'){
+            currentValue += char;
+        }
         displayValue += char;
         screen.innerHTML = displayValue;
-    }
+    //}
 }
 
+//clears
 function clear() {
     displayValue = '';
+    currentValue = '';
     screen.innerHTML = '';
 }
 
+//clears numbers[] and operators[], used for clear button
 function clearMemory() {
     numbers = [];
     operators = [];
 }
 
+//deletes last input
 function backspace() {
+    currentValue = currentValue.substring(0, currentValue.length - 1);
     displayValue = displayValue.substring(0, displayValue.length - 1);
     show('');
 }
@@ -97,7 +107,7 @@ document.getElementById('num0').addEventListener('click', function(){
 })
 
 document.getElementById('dot').addEventListener('click', function(){
-    if(!displayValue.includes('.')){
+    if(!currentValue.includes('.')){
         show('.');
     }
 })
@@ -122,68 +132,69 @@ document.getElementById('clear').addEventListener('click', function(){
 })
 
 document.getElementById('divide').addEventListener('click', function(){
+    show('/');
     console.log('/');
     savingToMemory('/');
-    clear();
 })
 
 document.getElementById('multiply').addEventListener('click', function(){
+    show('*');
     console.log('*');
     savingToMemory('*');
-    clear();
 })
 
 document.getElementById('minus').addEventListener('click', function(){
+    show('-');
     console.log('-');
     savingToMemory('-');
-    clear();
 })
 
 document.getElementById('plus').addEventListener('click', function(){
+    show('+');
     console.log('+');
     savingToMemory('+');
-    clear();
 })
 
+//saves currentValue to numbers[] and operator to operators[] so they can later be evaluated.
 function savingToMemory(operator) {
-    numbers[numbers.length] = displayValue;
+    numbers[numbers.length] = currentValue;
+    currentValue = '';
     if(operator === undefined){
         return;
     } else {
         operators[operators.length] = operator;
     };
-    
+
 }
 
+//calculates result using numbers[] and operators[];
 function calculate(){
-    let number;
     for(let i = 0; i < numbers.length; i++){
         if(operators[i] === '*'){
-            number = numbers[i] * numbers[i+1];
-            numbers.splice(i, 2, number);
+            numbers.splice(i, 2, operate('*', numbers[i], numbers[i+1]));
             operators.splice(i, 1);
             i--;
         }
         if(operators[i] === '/'){
-            number = numbers[i]/numbers[i+1];
-            numbers.splice(i, 2, number);
+            numbers.splice(i, 2, operate('/', numbers[i], numbers[i+1]));
             operators.splice(i, 1);
             i--;
         }
     }
     for(let i = 0; i < numbers.length; i++){
         if(operators[i] === '+'){
-            number = Number(numbers[i])+Number(numbers[i+1]);
-            numbers.splice(i, 2, number);
+            numbers.splice(i, 2, operate('+', Number(numbers[i]), Number(numbers[i+1])));
             operators.splice(i, 1);
             i--;
         }
         if(operators[i] === '-'){
-            number = numbers[i]-numbers[i+1];
-            numbers.splice(i, 2, number);
+            numbers.splice(i, 2, operate('-', numbers[i], numbers[i+1]));
             operators.splice(i, 1);
             i--;
         }
     }
-    return console.log(numbers[0]);
+    screen.innerHTML = numbers[0];
+    displayValue = numbers[0];
+    currentValue = numbers[0];
+    numbers.splice(0, 1);
 }
