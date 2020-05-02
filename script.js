@@ -46,18 +46,14 @@ let lineBreak = 0;
 
 function show(char){
     //checks if displayValue is not too long
-    if(displayValue.length > 25){
-        return;
+    if(displayValue.length > 11){
+        displayValue = displayValue.substring(1);
     }
     if(!isNaN(char) || char === '.'){
         currentValue += char;
     }
     displayValue += char;
     screen.innerHTML = displayValue;
-    if(displayValue.length > 10 && lineBreak === 0){
-        displayValue += '<br>';
-        lineBreak++;
-    }
 }
 
 function checkForDoubleOperators(){
