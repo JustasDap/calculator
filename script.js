@@ -15,7 +15,6 @@ function divide(a, b){
     if(b === '0'){
         alert('To Infinity and Beyond');
         clear();
-        clearMemory();
     } else {
         return a / b;
     }
@@ -42,12 +41,10 @@ let currentValue = '';
 
 let displayValue = '';
 
-let lineBreak = 0;
-
 function show(char){
     //checks if displayValue is not too long
     if(displayValue.length > 10){
-        displayValue = displayValue.substring(1);
+        displayValue = displayValue.substring(1);//deletes first character of displayValue string
     }
     if(!isNaN(char) || char === '.'){
         currentValue += char;
@@ -56,6 +53,7 @@ function show(char){
     screen.innerHTML = displayValue;
 }
 
+//checks if last input was an operator
 function checkForDoubleOperators(){
     if(displayValue.slice(-1) === '*' || displayValue.slice(-1) === '/' || displayValue.slice(-1) === '+' || displayValue.slice(-1) === '-'){
         return true;
@@ -70,10 +68,6 @@ function clear() {
     displayValue = '';
     currentValue = '';
     screen.innerHTML = '';
-}
-
-//clears numbers[] and operators[], used for clear button
-function clearMemory() {
     numbers = [];
     operators = [];
 }
@@ -137,9 +131,12 @@ document.getElementById('equals').addEventListener('click', function(){
     console.log(numbers);
     console.log(operators);
     calculate();
-    lineBreak = 0;
     console.log(numbers);
     console.log(operators);
+    screen.innerHTML = numbers[0];
+    displayValue = numbers[0].toString();
+    currentValue = numbers[0];
+    numbers.splice(0, 1);
 })
 /*
 document.getElementById('backspace').addEventListener('click', function(){
@@ -148,7 +145,6 @@ document.getElementById('backspace').addEventListener('click', function(){
 
 document.getElementById('clear').addEventListener('click', function(){
     clear();
-    clearMemory();
 })
 
 document.getElementById('divide').addEventListener('click', function(){
@@ -228,8 +224,4 @@ function calculate(){
     if(!(numbers[0] % 1 === 0)){
         numbers[0] = numbers[0].toFixed(3);
     }
-    screen.innerHTML = numbers[0];
-    displayValue = numbers[0].toString();
-    currentValue = numbers[0];
-    numbers.splice(0, 1);
 }
