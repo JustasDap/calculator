@@ -46,7 +46,7 @@ let lineBreak = 0;
 
 function show(char){
     //checks if displayValue is not too long
-    if(displayValue.length > 11){
+    if(displayValue.length > 10){
         displayValue = displayValue.substring(1);
     }
     if(!isNaN(char) || char === '.'){
