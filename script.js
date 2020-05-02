@@ -12,12 +12,13 @@ function multiply(a, b){
 }
 
 function divide(a, b){
-    if(b === 0){
-        alert('can\'t divide by zero, sorry bud');
+    if(b === '0'){
+        alert('To Infinity and Beyond');
         clear();
         clearMemory();
+    } else {
+        return a / b;
     }
-    return a / b;
 }
 
 function operate(ope, a, b){
@@ -228,7 +229,7 @@ function calculate(){
             i--;
         }
     }
-    if(!numbers[0].isInteger){
+    if(!(numbers[0] % 1 === 0)){
         numbers[0] = numbers[0].toFixed(3);
     }
     screen.innerHTML = numbers[0];
