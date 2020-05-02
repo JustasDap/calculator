@@ -12,6 +12,11 @@ function multiply(a, b){
 }
 
 function divide(a, b){
+    if(b === 0){
+        alert('can\'t divide by zero, sorry bud');
+        clear();
+        clearMemory();
+    }
     return a / b;
 }
 
@@ -135,7 +140,7 @@ document.getElementById('equals').addEventListener('click', function(){
     console.log(numbers);
     console.log(operators);
     calculate();
-    lineBreal = 0;
+    lineBreak = 0;
     console.log(numbers);
     console.log(operators);
 })
@@ -223,8 +228,11 @@ function calculate(){
             i--;
         }
     }
+    if(!numbers[0].isInteger){
+        numbers[0] = numbers[0].toFixed(3);
+    }
     screen.innerHTML = numbers[0];
-    displayValue = numbers[0];
+    displayValue = numbers[0].toString();
     currentValue = numbers[0];
     numbers.splice(0, 1);
 }
