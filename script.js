@@ -39,6 +39,7 @@ let displayValue = '';
 let lineBreak = 0;
 
 function show(char){
+    //checks if displayValue is not too long
     if(displayValue.length > 25){
         return;
     }
@@ -50,6 +51,15 @@ function show(char){
     if(displayValue.length > 10 && lineBreak === 0){
         displayValue += '<br>';
         lineBreak++;
+    }
+}
+
+function checkForDoubleOperators(){
+    if(displayValue.slice(-1) === '*' || displayValue.slice(-1) === '/' || displayValue.slice(-1) === '+' || displayValue.slice(-1) === '-'){
+        return true;
+    }
+    else {
+        return false;
     }
 }
 
@@ -125,6 +135,7 @@ document.getElementById('equals').addEventListener('click', function(){
     console.log(numbers);
     console.log(operators);
     calculate();
+    lineBreal = 0;
     console.log(numbers);
     console.log(operators);
 })
@@ -139,27 +150,35 @@ document.getElementById('clear').addEventListener('click', function(){
 })
 
 document.getElementById('divide').addEventListener('click', function(){
-    show('/');
-    console.log('/');
-    savingToMemory('/');
+    if(!checkForDoubleOperators()){
+        show('/');
+        console.log('/');
+        savingToMemory('/');
+    }
 })
 
 document.getElementById('multiply').addEventListener('click', function(){
-    show('*');
-    console.log('*');
-    savingToMemory('*');
+    if(!checkForDoubleOperators()){
+        show('*');
+        console.log('*');
+        savingToMemory('*');
+    }
 })
 
 document.getElementById('minus').addEventListener('click', function(){
-    show('-');
-    console.log('-');
-    savingToMemory('-');
+    if(!checkForDoubleOperators()){
+        show('-');
+        console.log('-');
+        savingToMemory('-');
+    }
 })
 
 document.getElementById('plus').addEventListener('click', function(){
-    show('+');
-    console.log('+');
-    savingToMemory('+');
+    if(!checkForDoubleOperators()){
+        show('+');
+        console.log('+');
+        savingToMemory('+');
+    }
 })
 
 //saves currentValue to numbers[] and operator to operators[] so they can later be evaluated.
