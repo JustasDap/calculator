@@ -67,11 +67,11 @@ function clearMemory() {
 }
 
 //deletes last input
-function backspace() {
+/*function backspace() {
     currentValue = currentValue.substring(0, currentValue.length - 1);
     displayValue = displayValue.substring(0, displayValue.length - 1);
     show('');
-}
+}*/
 
 document.getElementById('num1').addEventListener('click', function(){
     show('1');
@@ -128,10 +128,10 @@ document.getElementById('equals').addEventListener('click', function(){
     console.log(numbers);
     console.log(operators);
 })
-
+/*
 document.getElementById('backspace').addEventListener('click', function(){
     backspace();
-})
+})*/
 
 document.getElementById('clear').addEventListener('click', function(){
     clear();
