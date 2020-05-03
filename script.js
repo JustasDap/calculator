@@ -33,6 +33,8 @@ function operate(ope, a, b){
 }
 const screen = document.getElementById('results');
 
+const operationsScreen = document.getElementById('currentInput');
+
 let numbers = [];
 
 let operators = [];
@@ -43,19 +45,25 @@ let displayValue = '';
 
 function show(char){
     //checks if displayValue is not too long
-    if(displayValue.length > 10){
+    if(displayValue.length > 24){
         displayValue = displayValue.substring(1);//deletes first character of displayValue string
     }
-    if(!isNaN(char) || char === '.'){
-        currentValue += char;
+    if(currentValue.length < 9){
+        if(!isNaN(char) || char === '.'){
+            currentValue += char;
+        }
+        displayValue += char;
+        operationsScreen.innerHTML = displayValue;
+        screen.innerHTML = currentValue;
     }
-    displayValue += char;
-    screen.innerHTML = displayValue;
 }
 
 //checks if last input was an operator
 function checkForDoubleOperators(){
-    if(displayValue.slice(-1) === '*' || displayValue.slice(-1) === '/' || displayValue.slice(-1) === '+' || displayValue.slice(-1) === '-'){
+    if(displayValue.slice(-1) === '*' ||
+        displayValue.slice(-1) === '/' ||
+        displayValue.slice(-1) === '+' ||
+        displayValue.slice(-1) === '-') {
         return true;
     }
     else {
@@ -70,6 +78,7 @@ function clear() {
     screen.innerHTML = '';
     numbers = [];
     operators = [];
+    operationsScreen.innerHTML = '';
 }
 
 //deletes last input
@@ -127,16 +136,16 @@ document.getElementById('dot').addEventListener('click', function(){
 
 document.getElementById('equals').addEventListener('click', function(){
     savingToMemory();
-    console.log('=');
-    console.log(numbers);
-    console.log(operators);
+                                        console.log('=');
+                                        console.log(numbers);
+                                        console.log(operators);
     calculate();
-    console.log(numbers);
-    console.log(operators);
+                                        console.log(numbers);
+                                        console.log(operators);
     screen.innerHTML = numbers[0];
-    displayValue = numbers[0].toString();
-    currentValue = numbers[0];
-    numbers.splice(0, 1);
+    operationsScreen.innerHTML = displayValue;
+    displayValue = '';
+    //numbers.splice(0, 1);
 })
 /*
 document.getElementById('backspace').addEventListener('click', function(){
@@ -149,33 +158,29 @@ document.getElementById('clear').addEventListener('click', function(){
 
 document.getElementById('divide').addEventListener('click', function(){
     if(!checkForDoubleOperators()){
-        show('/');
-        console.log('/');
         savingToMemory('/');
+        show('/');
     }
 })
 
 document.getElementById('multiply').addEventListener('click', function(){
     if(!checkForDoubleOperators()){
-        show('*');
-        console.log('*');
         savingToMemory('*');
+        show('*');
     }
 })
 
 document.getElementById('minus').addEventListener('click', function(){
     if(!checkForDoubleOperators()){
-        show('-');
-        console.log('-');
         savingToMemory('-');
+        show('-');
     }
 })
 
 document.getElementById('plus').addEventListener('click', function(){
     if(!checkForDoubleOperators()){
+        savingToMemory('+');    
         show('+');
-        console.log('+');
-        savingToMemory('+');
     }
 })
 
@@ -222,6 +227,16 @@ function calculate(){
         }
     }
     if(!(numbers[0] % 1 === 0)){
-        numbers[0] = numbers[0].toFixed(3);
+        let string = numbers[0].toString();
+        numbers[0] = Number(numbers[0]);
+        console.log(string);
+        console.log(string.slice(-1));
+        if(string.slice(-2, -1) == '.'){
+            numbers[0] = numbers[0].toFixed(1);
+        } else if (string.slice(-3, -2) == '.') {
+            numbers[0] = numbers[0].toFixed(2);
+        } else {
+            numbers[0] = numbers[0].toFixed(3);
+        }
     }
 }
