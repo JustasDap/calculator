@@ -31,25 +31,25 @@ function operate(ope, a, b){
         return divide(a, b);
     }
 }
-const screen = document.getElementById('results');
+const screen = document.getElementById('results'); //lower calculator screen displaying current number
 
-const operationsScreen = document.getElementById('currentInput');
+const operationsScreen = document.getElementById('currentInput'); //top calculator screen displaying currently inputed operations
 
 let numbers = [];
 
 let operators = [];
 
-let currentValue = '';
+let currentValue = ''; 
 
-let displayValue = '';
+let displayValue = ''; 
 
 function show(char){
     //checks if displayValue is not too long
     if(displayValue.length > 24){
-        displayValue = displayValue.substring(1);//deletes first character of displayValue string
+        displayValue = displayValue.substring(1); //deletes first character of displayValue string
     }
-    if(currentValue.length < 9){
-        if(!isNaN(char) || char === '.'){
+    if(currentValue.length < 9){ //allows to input numbers not longer than 9 symbols
+        if(!isNaN(char) || char === '.'){ //checks if there was '.' in the current number before
             currentValue += char;
         }
         displayValue += char;
@@ -229,8 +229,8 @@ function calculate(){
     if(!(numbers[0] % 1 === 0)){
         let string = numbers[0].toString();
         numbers[0] = Number(numbers[0]);
-        console.log(string);
-        console.log(string.slice(-1));
+                                        console.log(string);
+                                        console.log(string.slice(-1));
         if(string.slice(-2, -1) == '.'){
             numbers[0] = numbers[0].toFixed(1);
         } else if (string.slice(-3, -2) == '.') {
