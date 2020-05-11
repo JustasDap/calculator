@@ -1,4 +1,4 @@
-
+//paspaudus zenkla pries skaiciu suluzta
 function add(a, b){
     return a + b;
 }
@@ -31,31 +31,46 @@ function operate(ope, a, b){
         return divide(a, b);
     }
 }
+
+/*function checkFirstNumber() {
+    if(numbers[0] === ''){
+        numbers[0] = '0';
+    }
+}*/
+
 const screen = document.getElementById('results'); //lower calculator screen displaying current number
+screen.innerHTML = '0';
 
 const operationsScreen = document.getElementById('currentInput'); //top calculator screen displaying currently inputed operations
+operationsScreen.innerHTML = '0';
 
 let numbers = [];
 
 let operators = [];
 
-let currentValue = ''; 
+//let currentValue = '0'; 
 
-let displayValue = ''; 
+let displayValue = '0';
+
+let changeNumber = true;
 
 function show(char){
     //checks if displayValue is not too long
     if(displayValue.length > 24){
         displayValue = displayValue.substring(1); //deletes first character of displayValue string
     }
-    if(currentValue.length < 9){ //allows to input numbers not longer than 9 symbols
+    /*if(currentValue.length < 9){ //allows to input numbers not longer than 9 symbols
         if(!isNaN(char) || char === '.'){ //checks if there was '.' in the current number before
             currentValue += char;
+        }*/
+    if(screen.innerHTML.length <9) {
+        if(!isNaN(char) || char === '.'){
+            screen.innerHTML += char;
         }
+    }
         displayValue += char;
         operationsScreen.innerHTML = displayValue;
-        screen.innerHTML = currentValue;
-    }
+        //screen.innerHTML = currentValue;
 }
 
 //checks if last input was an operator
@@ -64,21 +79,21 @@ function checkForDoubleOperators(){
         displayValue.slice(-1) === '/' ||
         displayValue.slice(-1) === '+' ||
         displayValue.slice(-1) === '-') {
-        return true;
+        return false;
     }
     else {
-        return false;
+        return true;
     }
 }
 
 //clears
 function clear() {
-    displayValue = '';
-    currentValue = '';
-    screen.innerHTML = '';
+    displayValue = '0';
+    //currentValue = '0';
+    screen.innerHTML = '0';
     numbers = [];
     operators = [];
-    operationsScreen.innerHTML = '';
+    operationsScreen.innerHTML = '0';
 }
 
 //deletes last input
@@ -129,7 +144,7 @@ document.getElementById('num0').addEventListener('click', function(){
 })
 
 document.getElementById('dot').addEventListener('click', function(){
-    if(!currentValue.includes('.')){
+    if(!screen.innerHTML.includes('.')){
         show('.');
     }
 })
@@ -149,7 +164,7 @@ document.getElementById('equals').addEventListener('click', function(){
     }
                                         console.log(numbers);
                                         console.log(operators);
-    //numbers.splice(0, 1);
+    numbers.splice(0, 1);
 })
 /*
 document.getElementById('backspace').addEventListener('click', function(){
@@ -161,37 +176,41 @@ document.getElementById('clear').addEventListener('click', function(){
 })
 
 document.getElementById('divide').addEventListener('click', function(){
-    if(!checkForDoubleOperators()){
+    if(checkForDoubleOperators()){
         savingToMemory('/');
         show('/');
     }
+    checkFirstNumber();
 })
 
 document.getElementById('multiply').addEventListener('click', function(){
-    if(!checkForDoubleOperators()){
+    if(checkForDoubleOperators()){
         savingToMemory('*');
         show('*');
     }
+    checkFirstNumber();
 })
 
 document.getElementById('minus').addEventListener('click', function(){
-    if(!checkForDoubleOperators()){
+    if(checkForDoubleOperators()){
         savingToMemory('-');
         show('-');
     }
+    checkFirstNumber();
 })
 
 document.getElementById('plus').addEventListener('click', function(){
-    if(!checkForDoubleOperators()){
+    if(checkForDoubleOperators()){
         savingToMemory('+');    
         show('+');
     }
+    checkFirstNumber();
 })
 
 //saves currentValue to numbers[] and operator to operators[] so they can later be evaluated.
 function savingToMemory(operator) {
-    numbers[numbers.length] = currentValue;
-    currentValue = '';
+    numbers[numbers.length] = screen.innerHTML;
+    screen.innerHTML  = '';
     if(operator === undefined){
         return;
     } else {
