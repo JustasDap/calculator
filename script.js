@@ -1,4 +1,3 @@
-//paspaudus zenkla pries skaiciu suluzta
 function add(a, b){
     return a + b;
 }
@@ -32,17 +31,11 @@ function operate(ope, a, b){
     }
 }
 
-/*function checkFirstNumber() {
-    if(numbers[0] === ''){
-        numbers[0] = '0';
-    }
-}*/
-
 const screen = document.getElementById('results'); //lower calculator screen displaying current number
 screen.innerHTML = '0';
 
-const operationsScreen = document.getElementById('currentInput'); //top calculator screen displaying currently inputed operations
-operationsScreen.innerHTML = '0';
+const opeScreen = document.getElementById('currentInput'); //top calculator screen displaying currently inputed operations
+opeScreen.innerHTML = '0';
 
 let numbers = [];
 
@@ -50,14 +43,14 @@ let operators = [];
 
 //let currentValue = '0'; 
 
-let displayValue = '0';
+//let opeScreen.innerHTML = '0';
 
 let changeNumber = true;
 
 function show(char){
     //checks if displayValue is not too long
-    if(displayValue.length > 24){
-        displayValue = displayValue.substring(1); //deletes first character of displayValue string
+    if(opeScreen.innerHTML.length > 24){
+        opeScreen.innerHTML = opeScreen.innerHTML.substring(1); //deletes first character of displayValue string
     }
     /*if(currentValue.length < 9){ //allows to input numbers not longer than 9 symbols
         if(!isNaN(char) || char === '.'){ //checks if there was '.' in the current number before
@@ -68,17 +61,17 @@ function show(char){
             screen.innerHTML += char;
         }
     }
-        displayValue += char;
-        operationsScreen.innerHTML = displayValue;
+        opeScreen.innerHTML += char;
+        opeScreen.innerHTML = opeScreen.innerHTML;
         //screen.innerHTML = currentValue;
 }
 
 //checks if last input was an operator
 function checkForDoubleOperators(){
-    if(displayValue.slice(-1) === '*' ||
-        displayValue.slice(-1) === '/' ||
-        displayValue.slice(-1) === '+' ||
-        displayValue.slice(-1) === '-') {
+    if(opeScreen.innerHTML.slice(-1) === '*' ||
+        opeScreen.innerHTML.slice(-1) === '/' ||
+        opeScreen.innerHTML.slice(-1) === '+' ||
+        opeScreen.innerHTML.slice(-1) === '-') {
         return false;
     }
     else {
@@ -88,12 +81,12 @@ function checkForDoubleOperators(){
 
 //clears
 function clear() {
-    displayValue = '0';
+    opeScreen.innerHTML = '0';
     //currentValue = '0';
     screen.innerHTML = '0';
     numbers = [];
     operators = [];
-    operationsScreen.innerHTML = '0';
+    opeScreen.innerHTML = '0';
 }
 
 //deletes last input
@@ -159,8 +152,8 @@ document.getElementById('equals').addEventListener('click', function(){
     } else {
         calculate();
         screen.innerHTML = numbers[0];
-        operationsScreen.innerHTML = displayValue;
-        displayValue = '';
+        opeScreen.innerHTML = opeScreen.innerHTML;
+        opeScreen.innerHTML = '';
     }
                                         console.log(numbers);
                                         console.log(operators);
@@ -180,7 +173,6 @@ document.getElementById('divide').addEventListener('click', function(){
         savingToMemory('/');
         show('/');
     }
-    checkFirstNumber();
 })
 
 document.getElementById('multiply').addEventListener('click', function(){
@@ -188,7 +180,6 @@ document.getElementById('multiply').addEventListener('click', function(){
         savingToMemory('*');
         show('*');
     }
-    checkFirstNumber();
 })
 
 document.getElementById('minus').addEventListener('click', function(){
@@ -196,7 +187,6 @@ document.getElementById('minus').addEventListener('click', function(){
         savingToMemory('-');
         show('-');
     }
-    checkFirstNumber();
 })
 
 document.getElementById('plus').addEventListener('click', function(){
@@ -204,7 +194,6 @@ document.getElementById('plus').addEventListener('click', function(){
         savingToMemory('+');    
         show('+');
     }
-    checkFirstNumber();
 })
 
 //saves currentValue to numbers[] and operator to operators[] so they can later be evaluated.
