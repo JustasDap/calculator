@@ -32,20 +32,20 @@ function operate(ope, a, b){
 }
 
 const screen = document.getElementById('results'); //lower calculator screen displaying current number
-screen.innerHTML = '0';
+//screen.innerHTML = '0';
 
 const opeScreen = document.getElementById('currentInput'); //top calculator screen displaying currently inputed operations
-opeScreen.innerHTML = '0';
+//opeScreen.innerHTML = '0';
 
 let numbers = [];
 
 let operators = [];
 
+let changingNumber = 0;
+
 //let currentValue = '0'; 
 
 //let opeScreen.innerHTML = '0';
-
-let changeNumber = true;
 
 function show(char){
     //checks if displayValue is not too long
@@ -62,7 +62,6 @@ function show(char){
         }
     }
         opeScreen.innerHTML += char;
-        opeScreen.innerHTML = opeScreen.innerHTML;
         //screen.innerHTML = currentValue;
 }
 
@@ -81,62 +80,80 @@ function checkForDoubleOperators(){
 
 //clears
 function clear() {
-    opeScreen.innerHTML = '0';
-    //currentValue = '0';
-    screen.innerHTML = '0';
+    opeScreen.innerHTML = '';
+    screen.innerHTML = '';
     numbers = [];
     operators = [];
-    opeScreen.innerHTML = '0';
 }
 
-//deletes last input
-/*function backspace() {
-    currentValue = currentValue.substring(0, currentValue.length - 1);
-    displayValue = displayValue.substring(0, displayValue.length - 1);
-    show('');
-}*/
+//deletes last inputed number
+function backspace() {
+    if(!(screen.innerHTML === '')){
+        screen.innerHTML = screen.innerHTML.substring(0, screen.innerHTML.length - 1);
+        opeScreen.innerHTML = opeScreen.innerHTML.substring(0, opeScreen.innerHTML.length - 1);
+        show('');
+    }
+}
+
+function changeNumber() {
+    if(changingNumber === 1) {
+        screen.innerHTML = '';
+        changingNumber = 0;
+    }
+}
 
 document.getElementById('num1').addEventListener('click', function(){
+    changeNumber();
     show('1');
 })
 
 document.getElementById('num2').addEventListener('click', function(){
+    changeNumber();
     show('2');
 })
 
 document.getElementById('num3').addEventListener('click', function(){
+    changeNumber();
     show('3');
 })
 
 document.getElementById('num4').addEventListener('click', function(){
+    changeNumber();
     show('4');
 })
 
 document.getElementById('num5').addEventListener('click', function(){
+    changeNumber();
     show('5');
 })
 
 document.getElementById('num6').addEventListener('click', function(){
+    changeNumber();
     show('6');
 })
 
 document.getElementById('num7').addEventListener('click', function(){
+    changeNumber();
     show('7');
 })
 
 document.getElementById('num8').addEventListener('click', function(){
+    changeNumber();
     show('8');
 })
 
 document.getElementById('num9').addEventListener('click', function(){
+    changeNumber();
     show('9');
 })
 
 document.getElementById('num0').addEventListener('click', function(){
+    changeNumber();
     show('0');
 })
 
 document.getElementById('dot').addEventListener('click', function(){
+    changeNumber();
     if(!screen.innerHTML.includes('.')){
         show('.');
     }
@@ -152,17 +169,17 @@ document.getElementById('equals').addEventListener('click', function(){
     } else {
         calculate();
         screen.innerHTML = numbers[0];
-        opeScreen.innerHTML = opeScreen.innerHTML;
-        opeScreen.innerHTML = '';
+        opeScreen.innerHTML = numbers[0];
+        numbers.splice(0, 1);
+        changingNumber = 1;
     }
                                         console.log(numbers);
                                         console.log(operators);
-    numbers.splice(0, 1);
 })
-/*
+
 document.getElementById('backspace').addEventListener('click', function(){
     backspace();
-})*/
+})
 
 document.getElementById('clear').addEventListener('click', function(){
     clear();
@@ -173,6 +190,7 @@ document.getElementById('divide').addEventListener('click', function(){
         savingToMemory('/');
         show('/');
     }
+    changingNumber = 0;
 })
 
 document.getElementById('multiply').addEventListener('click', function(){
@@ -180,6 +198,7 @@ document.getElementById('multiply').addEventListener('click', function(){
         savingToMemory('*');
         show('*');
     }
+    changingNumber = 0;
 })
 
 document.getElementById('minus').addEventListener('click', function(){
@@ -187,6 +206,7 @@ document.getElementById('minus').addEventListener('click', function(){
         savingToMemory('-');
         show('-');
     }
+    changingNumber = 0;
 })
 
 document.getElementById('plus').addEventListener('click', function(){
@@ -194,6 +214,7 @@ document.getElementById('plus').addEventListener('click', function(){
         savingToMemory('+');    
         show('+');
     }
+    changingNumber = 0;
 })
 
 //saves currentValue to numbers[] and operator to operators[] so they can later be evaluated.
